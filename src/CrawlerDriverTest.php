@@ -200,4 +200,48 @@ MESSAGE;
         $us->select();
         $this->assertTrue($us->isSelected());
     }
+
+    public function testFormPostEmpty()
+    {
+        $session = $this->getCrawlerSession();
+
+        $session->setField('Enter Email', 'my@example.com');
+        $session->setField('Enter Name', 'Pesho');
+        $session->check('Gender Male');
+        $session->check('Enter Notify Me');
+        $session->setField('Enter Message', 'Some new bio');
+        $session->setField('Enter Country', 'bulgaria');
+
+        $session->clickButton('Submit Button');
+
+        $this->assertEquals('Submit page', $session->get('h1')->getText());
+
+        $this->assertEquals('Pesho', $session->get('#name')->getText());
+        $this->assertEquals('notify', $session->get('#notifyme')->getText());
+        $this->assertEquals('male', $session->get('#gender')->getText());
+        $this->assertEquals('Some new bio', $session->get('#message')->getText());
+        $this->assertEquals('bulgaria', $session->get('#country')->getText());
+    }
+
+    public function testFormPostFilled()
+    {
+        $session = $this->getCrawlerSession();
+
+        $session->clickButton('Submit Button');
+
+        $this->assertEquals('Submit page', $session->get('h1')->getText());
+
+        $this->assertEquals('Tomas', $session->get('#name')->getText());
+        $this->assertEquals('female', $session->get('#gender')->getText());
+        $this->assertEquals('uk', $session->get('#country')->getText());
+    }
+
+    public function testLinkFollow()
+    {
+        $session = $this->getCrawlerSession();
+
+        $session->clickLink('Subpage 2');
+
+        $this->assertEquals('Other page', $session->get('h1')->getText());
+    }
 }
