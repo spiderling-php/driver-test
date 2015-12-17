@@ -1,0 +1,22 @@
+{
+    "name": "spiderling-php/driver-test",
+    "description": "Integration tests for spiderling drivers",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Ivan Kerin",
+            "email": "ikerin@gmail.com",
+            "role": "Author"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SP\\DriverTest\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SP\\DriverTest\\Test\\": "tests/src/"
+        }
+    }
+}
