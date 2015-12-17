@@ -96,10 +96,10 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('Subpage Title 1', $input->getAttribute('title'));
         $this->assertEquals('/test_functest/subpage1', $input->getAttribute('href'));
-        $this->assertEquals('Subpage 1  ', $input->getText());
+        $this->assertEquals('Subpage 1', $input->getText());
 
         $expected = <<<HTML
-<a class="navlink" id="navlink-1" title="Subpage Title 1" href="/test_functest/subpage1">Subpage 1 <img src="icon1.png" width="16" height="16" alt="icon 1"> </a>
+<a class="navlink" id="navlink-1" title="Subpage Title 1" href="/test_functest/subpage1">Subpage 1<img src="icon1.png" width="16" height="16" alt="icon 1"></a>
 HTML;
         $this->assertEquals(
             $expected,
