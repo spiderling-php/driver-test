@@ -85,9 +85,6 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
         return $session;
     }
 
-    /**
-     * @covers SP\Driver\PhantomBrowser::queryIds
-     */
     public function testAccessors()
     {
         $session = $this->getCrawlerSession();
