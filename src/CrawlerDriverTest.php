@@ -4,6 +4,7 @@ namespace SP\DriverTest;
 
 use PHPUnit_Framework_TestCase;
 use SP\Spiderling\CrawlerSession;
+use SP\Spiderling\CrawlerInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -14,14 +15,38 @@ use Symfony\Component\Process\Process;
 abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @return SP\Spiderling\CrawlerInterface
-     */
-    abstract static function getDriver();
-
-    /**
-     * @var Symfony\Component\Process\Process
+     * @var Process
      */
     private static $server;
+
+    /**
+     * @var CrawlerInterface
+     */
+    private static $driver;
+
+    /**
+     * @return CrawlerInterface
+     */
+    public static function getDriver()
+    {
+        return self::$driver;
+    }
+
+    /**
+     * @return CrawlerInterface
+     */
+    public static function setDriver(CrawlerInterface $driver)
+    {
+        self::$driver = $driver;
+    }
+
+    /**
+     * @var Process
+     */
+    public static function getServer()
+    {
+        return static::$server;
+    }
 
     public static function setUpBeforeClass()
     {
@@ -29,14 +54,6 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
 
         static::$server = new Process('php -S 127.0.0.1:4295', __DIR__.'/../html');
         static::$server->start();
-    }
-
-    /**
-     * @var Symfony\Component\Process\Process
-     */
-    public static function getServer()
-    {
-        return static::$server;
     }
 
     /**

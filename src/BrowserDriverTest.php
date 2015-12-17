@@ -12,11 +12,6 @@ use SP\Spiderling\BrowserSession;
 abstract class BrowserDriverTest extends CrawlerDriverTest
 {
     /**
-     * @return SP\Spiderling\BrowserInterface
-     */
-    abstract static function getDriver();
-
-    /**
      * @return BrowserSession
      */
     public function getBrowserSession()
