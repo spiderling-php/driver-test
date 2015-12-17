@@ -56,6 +56,14 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
         return static::$server;
     }
 
+    /**
+     * @return string
+     */
+    public static function getServerUri()
+    {
+        return 'http://127.0.0.1:4295';
+    }
+
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
@@ -72,7 +80,7 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
     public function getCrawlerSession()
     {
         $session = new CrawlerSession(static::getDriver());
-        $session->open('http://127.0.0.1:4295');
+        $session->open(self::getServerUri());
 
         return $session;
     }

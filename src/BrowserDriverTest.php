@@ -17,7 +17,7 @@ abstract class BrowserDriverTest extends CrawlerDriverTest
     public function getBrowserSession()
     {
         $session = new BrowserSession(self::getDriver());
-        $session->open($this->getUri());
+        $session->open(self::getServerUri());
 
         return $session;
     }
