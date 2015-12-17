@@ -201,7 +201,7 @@ MESSAGE;
         $this->assertTrue($us->isSelected());
     }
 
-    public function testFormPostEmpty()
+    public function testFormPostFilled()
     {
         $session = $this->getCrawlerSession();
 
@@ -216,14 +216,38 @@ MESSAGE;
 
         $this->assertEquals('Submit page', $session->get('h1')->getText());
 
-        $this->assertEquals('Pesho', $session->get('#name')->getText());
-        $this->assertEquals('notify', $session->get('#notifyme')->getText());
-        $this->assertEquals('male', $session->get('#gender')->getText());
-        $this->assertEquals('Some new bio', $session->get('#message')->getText());
-        $this->assertEquals('bulgaria', $session->get('#country')->getText());
+        $this->assertEquals(
+            'Pesho',
+            $session->get('#name')->getText(),
+            'Should change the value of the input'
+        );
+
+        $this->assertEquals(
+            'notify',
+            $session->get('#notifyme')->getText(),
+            'Should mark the checkbox as "checked"'
+        );
+
+        $this->assertEquals(
+            'male',
+            $session->get('#gender')->getText(),
+            'Should uncheck other radio and check "male" one'
+        );
+
+        $this->assertEquals(
+            'Some new bio',
+            $session->get('#message')->getText(),
+            'Should change the value of textarea'
+        );
+
+        $this->assertEquals(
+            'bulgaria',
+            $session->get('#country')->getText(),
+            'Should select a new value for a select'
+        );
     }
 
-    public function testFormPostFilled()
+    public function testFormPostEmpty()
     {
         $session = $this->getCrawlerSession();
 
@@ -242,6 +266,16 @@ MESSAGE;
 
         $session->clickLink('Subpage 2');
 
-        $this->assertEquals('Other page', $session->get('h1')->getText());
+        $this->assertEquals(
+            'Other page',
+            $session->get('h1')->getText(),
+            'Should load the page from the link address'
+        );
+
+        $this->assertEquals(
+            'http://127.0.0.1:4295/other.html',
+            (string) $session->getUri(),
+            'Should change the current uri, including the base from previous request'
+        );
     }
 }
