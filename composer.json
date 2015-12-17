@@ -11,7 +11,7 @@
     ],
     "require": {
         "spiderling-php/spiderling" : "dev-master",
-        "symfony/process" : "^3.0",
+        "symfony/process" : "^3.0"
     },
     "autoload": {
         "psr-4": {
