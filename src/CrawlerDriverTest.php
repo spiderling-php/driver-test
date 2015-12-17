@@ -41,6 +41,14 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return Process
+     */
+    public static function setServer(Process $server)
+    {
+        self::$server = $server;
+    }
+
+    /**
      * @var Process
      */
     public static function getServer()
@@ -52,8 +60,10 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
     {
         parent::setUpBeforeClass();
 
-        static::$server = new Process('php -S 127.0.0.1:4295', __DIR__.'/../html');
-        static::$server->start();
+        $server = new Process('php -S 127.0.0.1:4295', __DIR__.'/../html');
+        $server->start();
+
+        self::setServer($server);
     }
 
     /**
