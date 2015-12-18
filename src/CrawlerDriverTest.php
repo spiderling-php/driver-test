@@ -77,10 +77,10 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
     /**
      * @return CrawlerSession
      */
-    public function getCrawlerSession()
+    public function getCrawlerSession($uri = '')
     {
         $session = new CrawlerSession(static::getDriver());
-        $session->open(self::getServerUri());
+        $session->open(self::getServerUri().$uri);
 
         return $session;
     }
@@ -201,9 +201,9 @@ MESSAGE;
         $this->assertTrue($us->isSelected());
     }
 
-    public function testFormPostFilled()
+    public function testFormPostMultipart()
     {
-        $session = $this->getCrawlerSession();
+        $session = $this->getCrawlerSession('/multipart.html');
 
         $session->setField('Enter Email', 'my@example.com');
         $session->setField('Enter Name', 'Pesho');
@@ -211,6 +211,7 @@ MESSAGE;
         $session->check('Enter Notify Me');
         $session->setField('Enter Message', 'Some new bio');
         $session->setField('Enter Country', 'bulgaria');
+        $session->setFieldFile('Logo', __DIR__.'/../html/icon1.png');
 
         $session->clickButton('Submit Button');
 
@@ -244,6 +245,18 @@ MESSAGE;
             'bulgaria',
             $session->get('#country')->getText(),
             'Should select a new value for a select'
+        );
+
+        $this->assertEquals(
+            'icon1.png',
+            $session->get('#file-name')->getText(),
+            'Should have uploaded the file'
+        );
+
+        $this->assertEquals(
+            '0',
+            $session->get('#file-error')->getText(),
+            'Should have no errors'
         );
     }
 
