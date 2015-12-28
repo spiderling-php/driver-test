@@ -92,7 +92,7 @@ abstract class CrawlerDriverTest extends PHPUnit_Framework_TestCase
         $input = $session->getLink('Subpage 1');
 
         $this->assertEquals('Subpage Title 1', $input->getAttribute('title'));
-        $this->assertEquals('/test_functest/subpage1', $input->getAttribute('href'));
+        $this->assertEquals('navlink', $input->getAttribute('class'));
         $this->assertEquals('Subpage 1', $input->getText());
 
         $expected = <<<HTML
@@ -190,9 +190,9 @@ MESSAGE;
 
         $select = $session->getField('Enter Country');
         $this->assertEquals('uk', $select->getValue());
-        $select->setValue('bulgaria');
+        $session->select('Enter Country', 'Bulgaria');
         $this->assertEquals('bulgaria', $select->getValue());
-        $select->setValue('Tunisia');
+        $session->select('Enter Country', 'Tunisia');
         $this->assertEquals('Tunisia', $select->getValue());
 
         $us = $session->get('option:text("United States")');
@@ -210,7 +210,7 @@ MESSAGE;
         $session->check('Gender Male');
         $session->check('Enter Notify Me');
         $session->setField('Enter Message', 'Some new bio');
-        $session->setField('Enter Country', 'bulgaria');
+        $session->select('Enter Country', 'Bulgaria');
         $session->setFieldFile('Logo', __DIR__.'/../html/icon1.png');
 
         $session->clickButton('Submit Button');

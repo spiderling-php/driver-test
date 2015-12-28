@@ -41,31 +41,12 @@ abstract class BrowserDriverTest extends CrawlerDriverTest
             document
                 .getElementById('p-1')
                 .addEventListener('mouseover', function () {
-                    console.log('hovered over p-1');
+                    this.setAttribute('title', 'Hovered');
                 });
         ");
 
         $session->hover('#p-1');
 
-        $messages = $session->getJsMessages();
-        $this->assertEquals(['hovered over p-1'], $messages);
-    }
-
-    public function testGetMessages()
-    {
-        $session = $this->getBrowserSession();
-
-        $session->executeJs('console.log("test message")');
-        $session->executeJs('window.test();');
-
-        $messages = $session->getJsMessages();
-        $errors = $session->getJsErrors();
-
-        $this->assertEquals(['test message'], $messages);
-
-        $this->assertEquals(
-            ["TypeError: 'undefined' is not a function (evaluating 'window.test()') in :1"],
-            $errors
-        );
+        $this->assertEquals('Hovered', $session->get('#p-1')->getAttribute('title'));
     }
 }
