@@ -33,6 +33,26 @@ abstract class BrowserDriverTest extends CrawlerDriverTest
         unlink(__DIR__.'/../file.jpg');
     }
 
+    public function testAlertText()
+    {
+        $session = $this->getBrowserSession();
+
+        $session->clickOn('#navlink-3');
+
+        $this->assertEquals('Some alert message', $session->getAlertText());
+    }
+
+    public function testConfirm()
+    {
+        $session = $this->getBrowserSession();
+
+        $session
+            ->clickOn('#navlink-4')
+            ->confirm(true);
+
+        $this->assertEquals('Other page', $session->get('h1')->getText());
+    }
+
     public function testMouseHover()
     {
         $session = $this->getBrowserSession();

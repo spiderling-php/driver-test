@@ -1,9 +1,10 @@
 <div id="index">
     <div class="content">
         <ul class="subnav">
-            <li><a class="navlink" id="navlink-1" title="Subpage Title 1" href="/test_functest/subpage1">Subpage 1</a></li>
+            <li><a class="navlink" id="navlink-1" title="Subpage Title 1" href="/other.html">Subpage 1</a></li>
             <li><a class="navlink" id="navlink-2" title="Subpage Title 2" href="/other.html">Subpage 2<img src="icon2.png" width="16" height="16" alt="icon 2"></a></li>
-            <li><a class="navlink" id="navlink-3" title="Subpage Title 3" href="/">Subpage 3<img src="icon3.png" width="16" height="16" alt="icon 3"></a></li>
+            <li><a onclick="alert('Some alert message'); return false;" class="navlink" id="navlink-3" title="Subpage Title 3" href="/">Subpage 3<img src="icon3.png" width="16" height="16" alt="icon 3"></a></li>
+            <li><a onclick="return confirm('Will not close');" class="navlink" id="navlink-4"href="/other.html">Confirm Link</a></li>
         </ul>
     </div>
 
