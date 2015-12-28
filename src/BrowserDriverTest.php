@@ -40,6 +40,8 @@ abstract class BrowserDriverTest extends CrawlerDriverTest
         $session->clickOn('#navlink-3');
 
         $this->assertEquals('Some alert message', $session->getAlertText());
+
+        $session->confirm(true);
     }
 
     public function testConfirm()
